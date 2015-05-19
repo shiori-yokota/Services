@@ -1,0 +1,20 @@
+﻿2014/11/07 16:07:23 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\yokota\Desktop\Study\VoiceControll\VoiceControl\VoiceControl.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\CL.exe /c /I"../SIGService_v2-1-0/include" /I"C:\Program Files (x86)\boost\include\boost" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc90.pdb" /Gd /TP /analyze- /errorReport:prompt VoiceControll.cpp
+         VoiceControll.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.sig" /NOLOGO /LIBPATH:"../SIGService_v2-1-0/lib/Debug" SIGService.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\VoiceControl.sig.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.lib" /MACHINE:X86 Debug\MaltiSpeak.obj
+         Debug\VoiceControll.obj
+         LINK : 前回のインクリメンタル リンクで C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.sig が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+     1>SIGService.lib(SgvSocket.obj) : warning LNK4099: PDB 'vc90.pdb' が '../SIGService_v2-1-0/lib/Debug\SIGService.lib' で、または 'C:\Users\yokota\Desktop\Study\VoiceControll\Debug\vc90.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+     1>SIGService.lib(SIGService.obj) : warning LNK4099: PDB 'vc90.pdb' が '../SIGService_v2-1-0/lib/Debug\SIGService.lib' で、または 'C:\Users\yokota\Desktop\Study\VoiceControll\Debug\vc90.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+     1>SIGService.lib(ViewImage.obj) : warning LNK4099: PDB 'vc90.pdb' が '../SIGService_v2-1-0/lib/Debug\SIGService.lib' で、または 'C:\Users\yokota\Desktop\Study\VoiceControll\Debug\vc90.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+         VoiceControl.vcxproj -> C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.sig
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\yokota\Desktop\Study\VoiceControll\Debug\VoiceControl.sig;#1" /manifest Debug\VoiceControl.sig.intermediate.manifest
+     1>プロジェクト "C:\Users\yokota\Desktop\Study\VoiceControll\VoiceControl\VoiceControl.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:08.85
