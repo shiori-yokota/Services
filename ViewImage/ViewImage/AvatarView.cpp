@@ -25,6 +25,7 @@ public:
 	// 定期的に呼び出される関数
 	double onAction();
 	std::string MyService::get_time(void);
+	void strSplit(std::string msg, std::string separator);
 
 	//フォルダの名前
 	std::string FolderName;
@@ -36,6 +37,11 @@ public:
 	std::string ThirdPartyView;
 	//timeが保存される
 	std::string Time;
+	//Object id
+	std::string objName;
+	//strSpllit
+	std::string headStr;
+	std::string bodyStr;
 };
 
 MyService::~MyService()
@@ -86,8 +92,35 @@ void MyService::onRecvMsg(sigverse::RecvMsgEvent &evt)
 	std::string msg = evt.getMsg();
 
 	if (sender == "logger1"){
+		strSplit(msg, " ");
 		if (msg != "rec" && msg != "play" && msg != "stop"){
 			Time = msg;
+		}
+		if (headStr == "ObjName"){
+			objName = bodyStr;
+			//std::cout << objName << std::endl;
+		}
+	}
+	else if (sender == "sigverse_DB"){
+		//std::cout << msg << std::endl;
+		sigverse::ViewImage *img_avater;
+		sigverse::ViewImage *img_thirdParty;
+		img_avater = this->captureView("man_0", 1);
+		img_thirdParty = this->captureView("logger1", 1);
+		if (img_avater != NULL && img_thirdParty != NULL){
+			AvatarViewName = AvatarName + "/" + objName + "_" + msg + ".bmp";
+			ThirdPartyView = ThirdParty + "/" + objName + "_" + msg + ".bmp";
+			if (Time != ""){
+				// 画像データを取得します
+				char *buf = img_avater->getBuffer();
+				char *buf2 = img_thirdParty->getBuffer();
+				//Windows BMP 形式で保存します
+				img_avater->saveAsWindowsBMP(AvatarViewName.c_str());
+				img_thirdParty->saveAsWindowsBMP(ThirdPartyView.c_str());
+			}
+			//必要なくなったら削除します
+			delete img_avater;
+			delete img_thirdParty;
 		}
 	}
 	// メッセージが"capture"だった場合画像データを取得します
@@ -147,6 +180,18 @@ std::string MyService::get_time(void){
 	Time = hour.str() + minute.str() + second.str() +"_"+ millisecond.str();
 
 	return Day + "_" + Time;
+}
+
+void MyService::strSplit(std::string msg, std::string separator){
+	int strPos1 = 0;
+	int strPos2;
+	std::string head;
+	std::string body;
+	strPos2 = msg.find_first_of(separator, strPos1);
+	head.assign(msg, strPos1, strPos2 - strPos1);
+	body.assign(msg, strPos2 + 1, msg.length() - strPos2);
+	headStr = head;
+	bodyStr = body;
 }
 
 int main(int argc, char** argv)
