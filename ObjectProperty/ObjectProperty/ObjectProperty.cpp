@@ -46,11 +46,13 @@ private:
 	std::vector<std::string> List;
 	std::vector<std::string> RequestedProperties;
 
-	string obj_id;
-	string property;
-	string attribute;
-	string headStr;
-	string bodyStr;
+	std::string obj_id;
+	std::string file_dir;
+	std::string dir_prop;
+	std::string property;
+	std::string attribute;
+	std::string headStr;
+	std::string bodyStr;
 
 	int obj_count;
 
@@ -91,11 +93,14 @@ void MyService::onRecvMsg(sigverse::RecvMsgEvent &evt)
 		if (msg == "Start") {
 			cout << msg << endl;
 			//‰ŠúÝ’è
-			//this->InitToMysql();
+			this->InitToMysql();
 		}
 		else if (headStr == "id") {
 			obj_id = bodyStr;
 			cout << obj_id << endl;
+		}
+		else if (headStr == "DirProp"){
+			file_dir = bodyStr;
 		}
 		else {
 			attribute = msg;
@@ -108,7 +113,7 @@ void MyService::onRecvMsg(sigverse::RecvMsgEvent &evt)
 		if (msg == "Start") {
 			cout << msg << endl;
 			//‰ŠúÝ’è
-			//this->InitToMysql();
+			this->InitToMysql();
 		}
 	}
 	else if (sender == "Robot"){
@@ -152,7 +157,31 @@ void MyService::mysqlWrite(string Property){
 		stmt->execute(command);
 		//stmt->execute("INSERT IGNORE INTO " + attribute + " VALUES('" + Property + "');");
 
-		/* Create new table */
+		///* Create new table */
+		//string query;
+		//PreparedStatement *pstmt;
+		//ResultSet *rows;
+		//query = "SHOW TABLES FROM ObjectProperties LIKE '" + Property + "';";
+		//cout << query << endl;
+		//pstmt = con->prepareStatement(query);
+		//rows = pstmt->executeQuery();
+		//rows->next();
+		//int count = rows->rowsCount();
+		//cout << count << endl;
+		//if (count == 0){
+		//	cout << "not exist" << endl;
+		//	cout << "create table " << Property << endl;
+		//	stmt->execute("CREATE TABLE " + Property + "  (id char (50) unique, count int) ");
+		//}
+		//else cout << "already exist" << endl;
+
+		///* Insert object_id into property */
+		//command = "INSERT INTO " + Property + " VALUES('" + obj_id + "',1) ON DUPLICATE KEY UPDATE count = count + 1;";
+		//cout << command << endl;
+		//stmt->execute(command);
+
+		/* Create table */
+		//stmt->execute("CREATE TABLE " + Property + " (id char (50) , dir_property char (50)) ");
 		string query;
 		PreparedStatement *pstmt;
 		ResultSet *rows;
@@ -166,13 +195,14 @@ void MyService::mysqlWrite(string Property){
 		if (count == 0){
 			cout << "not exist" << endl;
 			cout << "create table " << Property << endl;
-			stmt->execute("CREATE TABLE " + Property + "  (id char (50) unique, count int) ");
+			stmt->execute("CREATE TABLE " + Property + "  (id char (50) , dir_property char (50)) ");
 		}
 		else cout << "already exist" << endl;
 
 		/* Insert object_id into property */
-		command = "INSERT INTO " + Property + " VALUES('" + obj_id + "',1) ON DUPLICATE KEY UPDATE count = count + 1;";
-		cout << command << endl;
+		dir_prop = file_dir + obj_id + "_" + Property;
+		command = "INSERT INTO " + Property + " VALUES('" + obj_id + "','" + dir_prop + "');";
+		std::cout << command << std::endl;
 		stmt->execute(command);
 
 		start = false;
